@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446824e9c7aaf344885e8250dfca6175, type: 3}
+  m_Name: MapConfig
+  m_EditorClassIdentifier: 
+  _wreckingWall: {fileID: 2502040562751534452, guid: d67ae69ff92e93543a614ca20294cf70,
+    type: 3}
+  _brokenWall: {fileID: 3370283904310445566, guid: d1c64c808e71c964db8f6dbaeb6f7694,
+    type: 3}
+  _room: {fileID: 8054127004185745226, guid: 681d11b7fd74557459aac7db900a6107, type: 3}
+  _wall: {fileID: 1324520708552306550, guid: 905a4b94a12eb0e47ba5d75de872133d, type: 3}
+  _window: {fileID: 3667531473244848282, guid: 9d05523686f7f1446acd0d0af5cb6b21, type: 3}
+  _floor: {fileID: 6290901039109788589, guid: 7cd26df1ad628464997e87cdeb7b140f, type: 3}

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1105 &110500000
+HumanTemplate:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Human Template
+  m_BoneTemplate:
+    Chest: Base HumanSpine2
+    Head: Base HumanHead
+    Hips: Base HumanPelvis
+    Left Index Distal: Base HumanLDigit23
+    Left Index Intermediate: Base HumanLDigit22
+    Left Index Proximal: Base HumanLDigit21
+    Left Little Distal: Base HumanLDigit53
+    Left Little Intermediate: Base HumanLDigit52
+    Left Little Proximal: Base HumanLDigit51
+    Left Middle Distal: Base HumanLDigit33
+    Left Middle Intermediate: Base HumanLDigit32
+    Left Middle Proximal: Base HumanLDigit31
+    Left Ring Distal: Base HumanLDigit43
+    Left Ring Intermediate: Base HumanLDigit42
+    Left Ring Proximal: Base HumanLDigit41
+    Left Thumb Distal: Base HumanLDigit13
+    Left Thumb Intermediate: Base HumanLDigit12
+    Left Thumb Proximal: Base HumanLDigit111
+    LeftFoot: Base HumanLFoot
+    LeftHand: Base HumanLPalm
+    LeftLowerArm: Base HumanLForearm
+    LeftLowerLeg: Base HumanLCalf
+    LeftShoulder: Base HumanLCollarbone
+    LeftToes: Base HumanLDigit11
+    LeftUpperArm: Base HumanLUpperarm
+    LeftUpperLeg: Base HumanLThigh
+    Neck: Base HumanNeck
+    Right Index Distal: Base HumanRDigit23
+    Right Index Intermediate: Base HumanRDigit22
+    Right Index Proximal: Base HumanRDigit21
+    Right Little Distal: Base HumanRDigit53
+    Right Little Intermediate: Base HumanRDigit52
+    Right Little Proximal: Base HumanRDigit51
+    Right Middle Distal: Base HumanRDigit33
+    Right Middle Intermediate: Base HumanRDigit32
+    Right Middle Proximal: Base HumanRDigit31
+    Right Ring Distal: Base HumanRDigit43
+    Right Ring Intermediate: Base HumanRDigit42
+    Right Ring Proximal: Base HumanRDigit41
+    Right Thumb Distal: Base HumanRDigit13
+    Right Thumb Intermediate: Base HumanRDigit12
+    Right Thumb Proximal: Base HumanRDigit111
+    RightFoot: Base HumanRFoot
+    RightHand: Base HumanRPalm
+    RightLowerArm: Base HumanRForearm
+    RightLowerLeg: Base HumanRCalf
+    RightShoulder: Base HumanRCollarbone
+    RightToes: Base HumanRDigit11
+    RightUpperArm: Base HumanRUpperarm
+    RightUpperLeg: Base HumanRThigh
+    Spine: Base HumanSpine1
+    UpperChest: Base HumanRibcage
