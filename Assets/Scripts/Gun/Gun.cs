@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
             if(Physics.Raycast(_ray, out _hit, _shootDistance))
             {
                 Enemy target = _hit.collider.GetComponent<Enemy>();
-                if (target != null)
+                if (target != null && target.IsDamagable())
                 {
                     Shoot(target);
                     _lastShotTime = Time.time;
@@ -43,8 +43,7 @@ public class Gun : MonoBehaviour
     private void SpawnShell()
     {
         _shell = PoolManager.Get(22).transform;
-        _shell.transform.position = _sh_spawn.transform.position;
-        _shell.transform.rotation = _sh_spawn.transform.rotation;
+        _shell.SetPositionAndRotation(_sh_spawn.position, _sh_spawn.rotation);
         _shell.gameObject.SetActive(true);
     }
 }

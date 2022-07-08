@@ -12,7 +12,7 @@ namespace pool
 			if (!_isSpawned)
 			{
 				_isSpawned = true;
-				_disableObject = pool.setup.switchGameObject;
+				_disableObject = pool.Setup.DisableOnReturn;
 				if (_disableObject)
 					gameObject.SetActive(false);
 			}

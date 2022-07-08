@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
+using System;
 
 public class FloatingJoystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDownHandler
 {
@@ -10,8 +10,8 @@ public class FloatingJoystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPo
 
 	private InputMediator _mediator;
 	public Vector2 InputVector => _inputVector;
-	public UnityEvent PointerDown;
-	public UnityEvent PointerUp;
+	public event Action PointerDown;
+	public event Action PointerUp;
 
 	private Vector2 _inputVector;
 	private Vector2 _pos;
@@ -38,8 +38,8 @@ public class FloatingJoystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPo
 	{
 		if(RectTransformUtility.ScreenPointToLocalPointInRectangle(AllAxis_Outline.rectTransform,ped.position,ped.pressEventCamera, out _pos))
 		{
-			_pos.x = (_pos.x / AllAxis_Outline.rectTransform.sizeDelta.x);
-			_pos.y = (_pos.y / AllAxis_Outline.rectTransform.sizeDelta.y);
+			_pos.x /= AllAxis_Outline.rectTransform.sizeDelta.x;
+			_pos.y /= AllAxis_Outline.rectTransform.sizeDelta.y;
 
 			_inputVector = new Vector2 (_pos.x, _pos.y);
 			_inputVector = (_inputVector.magnitude > 1.0f) ? _inputVector.normalized : _inputVector;

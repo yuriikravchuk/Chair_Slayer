@@ -10,34 +10,32 @@ public class WallsGenerator : Object
         {
             for (int y = 0; y < _maxY; y++)
             {
-                Room currentRoom = rooms[x, y];
-                if(currentRoom)
+                Room forwardRoom = rooms[x, y];
+                if (IsLeftBound(x) == false)
                 {
-                    if (isLeftBound(x) == false)
-                    {
-                        currentRoom.walls[0] = SpawnWall(currentRoom.transform, 0);
-                        if (rooms[x - 1, y])
-                            rooms[x - 1, y].walls[2] = currentRoom.walls[0];
-                    }
+                    Wall wall = SpawnWall(forwardRoom.transform, 0);
+                    forwardRoom.walls[0] = wall;
+                    Room backwardRoom = rooms[x - 1, y];
+                    backwardRoom.walls[2] = wall;
+                    wall.Init(forwardRoom, backwardRoom);
+                }
 
-                    if(isTopBound(y) == false)
-                    {
-                        currentRoom.walls[1] = SpawnWall(currentRoom.transform, 1);
-                        if (rooms[x, y-1])
-                            rooms[x, y-1].walls[3] = currentRoom.walls[1];
-                    }
+                if(IsTopBound(y) == false)
+                {
+                    Wall wall = SpawnWall(forwardRoom.transform, 1);
+                    forwardRoom.walls[1] = wall;
+                    Room backwardRoom = rooms[x, y - 1];
+                    backwardRoom.walls[3] = wall;
+                    wall.Init(forwardRoom, backwardRoom);
                 }
             }
         }
     }
 
     private Wall SpawnWall(Transform currentRoom, int wallIndex)
-    {
-        Wall wall = Instantiate(MapConfig.Wall, currentRoom.transform.position, Quaternion.Euler(0, 90 * (wallIndex + 1), 0), currentRoom).GetComponent<Wall>();
-        return wall;
-    }
+        => Instantiate(MapConfig.Wall, currentRoom.transform.position, Quaternion.Euler(0, 90 * (wallIndex + 1), 0), currentRoom)       ;
 
 
-    private bool isLeftBound(int x) => x == 0;
-    private bool isTopBound(int y) => y == 0;
+    private bool IsLeftBound(int x) => x == 0;
+    private bool IsTopBound(int y) => y == 0;
 }

@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 1324520708552306544}
   - component: {fileID: 2628934839810148633}
   - component: {fileID: 1324520708552306552}
+  - component: {fileID: 2015558675323395734}
   m_Layer: 10
   m_Name: wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1324520708552306551
 Transform:
   m_ObjectHideFlags: 0
@@ -111,10 +112,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e78d436727ad945b75a759f26c8e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _door: {fileID: 5534380805958819161}
   _trigger: {fileID: 3159349447237550029}
+  _enemySpawner: {fileID: 2015558675323395734}
+--- !u!114 &2015558675323395734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324520708552306550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dda0ed0535d647459d244f8cb69d721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _door: {fileID: 5534380805958819161}
   _spawn: {fileID: 6837839633452646499}
-  HasRoomInBack: 0
 --- !u!1 &7047062634597614690
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +188,11 @@ PrefabInstance:
     - target: {fileID: 3824268670863092789, guid: 2b46785d67a46e44ab08dd74a341e5e8,
         type: 3}
       propertyPath: wall
+      value: 
+      objectReference: {fileID: 1324520708552306552}
+    - target: {fileID: 3824268670863092789, guid: 2b46785d67a46e44ab08dd74a341e5e8,
+        type: 3}
+      propertyPath: _wall
       value: 
       objectReference: {fileID: 1324520708552306552}
     - target: {fileID: 6671285898131197430, guid: 2b46785d67a46e44ab08dd74a341e5e8,
@@ -269,7 +287,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe6327d647998549833b04ecb2d32a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 955bd2f278045074196b9f58036e0fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7643873092097927943

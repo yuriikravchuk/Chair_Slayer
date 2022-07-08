@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
+using System;
 
 public class FireButton : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 {
-    public UnityEvent PointerDown;
-    public UnityEvent PointerUp;
+    public event Action PointerDown;
+    public event Action PointerUp;
 
     //private void Update()
     //{

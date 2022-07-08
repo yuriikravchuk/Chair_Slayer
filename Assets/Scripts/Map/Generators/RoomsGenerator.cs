@@ -7,15 +7,13 @@ public class RoomsGenerator : Object
 {
     private readonly Vector2Int _spawnIndex;
     private const float _roomLengh = 12.5f;
-    private readonly Room _spawnRoom;
     private readonly int _maxX, _maxY;
     private readonly int _avaibleRooms;
     private Room[,] _rooms;
-    public RoomsGenerator(int maxX, int maxY,Room spawnRoom, Vector2Int spawnIndex)
+    public RoomsGenerator(int maxX, int maxY, Vector2Int spawnIndex)
     {
         _maxX = maxX;
         _maxY = maxY;
-        _spawnRoom = spawnRoom;
         _spawnIndex = spawnIndex;
         _avaibleRooms = (_maxX * _maxY + 1) / 2;
     }
@@ -23,15 +21,8 @@ public class RoomsGenerator : Object
     public Room[,] GetRooms()
     {
         _rooms = InstantiateRooms();
-        _rooms[_spawnIndex.x, _spawnIndex.y] = _spawnRoom;
-        _spawnRoom.SetAvailbe();
-
-        for (int i = 0; i < _avaibleRooms; i++)
-        {
-            Vector2Int roomIndex = GetIndexOfAvaibleRoom();
-            _rooms[roomIndex.x, roomIndex.y].SetAvailbe();
-            //InstantiateRoom(roomIndex.x, roomIndex.y);
-        }
+        //_rooms[_spawnIndex.x, _spawnIndex.y] = _spawnRoom;
+        SetRoomsAvailable();
 
         return _rooms;
     }
@@ -39,7 +30,6 @@ public class RoomsGenerator : Object
     private Vector2Int GetIndexOfAvaibleRoom()
     {
         HashSet<Vector2Int> vacantPlaces = new HashSet<Vector2Int>();
-
         for (int x = 0; x < _maxX; x++)
         {
             for (int y = 0; y < _maxY; y++)
@@ -67,13 +57,13 @@ public class RoomsGenerator : Object
     private Room[,] InstantiateRooms()
     {
         Room[,] _rooms = new Room[_maxX, _maxY];
-        _rooms[_spawnIndex.x, _spawnIndex.y] = _spawnRoom;
+        //_rooms[_spawnIndex.x, _spawnIndex.y] = _spawnRoom;
         for (int x = 0; x < _maxX; x++)
         {
             for (int y = 0; y < _maxY; y++)
             {
-                if (x == _spawnIndex.x && y == _spawnIndex.y)
-                    continue;
+                //if (x == _spawnIndex.x && y == _spawnIndex.y)
+                //    continue;
 
                 _rooms[x, y] = InstantiateRoom(x, y);
             }
@@ -82,6 +72,17 @@ public class RoomsGenerator : Object
         return _rooms;
     }
 
+    private void SetRoomsAvailable()
+    {
+        _rooms[_spawnIndex.x, _spawnIndex.y].SetAvailable();
+        for (int i = 0; i < _avaibleRooms; i++)
+        {
+            Vector2Int roomIndex = GetIndexOfAvaibleRoom();
+            _rooms[roomIndex.x, roomIndex.y].SetAvailable();
+            //InstantiateRoom(roomIndex.x, roomIndex.y);
+        }
+    }
+
     private Room InstantiateRoom(int x, int y) =>
-    Instantiate(MapConfig.Room, new Vector3(x - _spawnIndex.x, 0, -(y - _spawnIndex.y)) * _roomLengh, Quaternion.identity).GetComponent<Room>();
+    Instantiate(MapConfig.Room, new Vector3(x - _spawnIndex.x, 0, -(y - _spawnIndex.y)) * _roomLengh, Quaternion.identity);
 }

@@ -2,53 +2,41 @@
 using enemy;
 using System;
 
-public class EnemySpawner : UnityEngine.Object
+public class EnemySpawner : MonoBehaviour
 {
     public bool SpawnActive = true;
 
-    private readonly int[] _spawnChance = { 90, 101 };
     private IDamageable _player;
     private Transform _target;
     private Room[,] _rooms;
-
-    private int _spawnSpeed = 7;
-    private float _lastSpawnTime;
-    private bool _spawnActive;
-
+    private EnemiesManager _enemiesHandler;
+    private readonly int[] _spawnChance = { 101, 102 };
+    private readonly int _spawnSpeed = 7;
     private float _maxX, _maxY;
+    private float _lastSpawnTime;
 
-    public EnemySpawner(IDamageable player, Transform target, Room[,] rooms)
+    private void Update()
+    {
+        TrySpawnEnemies();
+        //SDebug.Log(_enemiesHandler._enemies.ToList().Count);
+    }
+
+    public void Init(IDamageable player, Transform target, Room[,] rooms, EnemiesManager enemiesHandler)
     {
         _player = player;
         _target = target;
         _rooms = rooms;
         _maxX = _rooms.GetLength(0);
         _maxY = _rooms.GetLength(1);
-        _lastSpawnTime = Time.time;
-    }
-
-    private SimpleEnemy GetEnemy()
-    {
-        int random = UnityEngine.Random.Range(1, 100);
-        for (int i = 0; i < _spawnChance.Length; i++)
-        {
-            if (random <= _spawnChance[i])
-            {
-                SimpleEnemy enemy = PoolManager.Get(i + 1).GetComponent<SimpleEnemy>();
-                enemy.Init(_player, _target);
-                return enemy;
-            }
-        }
-        throw new InvalidOperationException();
+        _enemiesHandler = enemiesHandler;
     }
 
     public void TrySpawnEnemies()
     {
         if (SpawnActive && Time.time > _lastSpawnTime + _spawnSpeed)
         {
+            _lastSpawnTime = Time.time;
             SpawnEnemies();
-            //_door.SetBool("open", true);
-            //StartCoroutine(WaitUntilEnemyEntryRoom(position, enemy));
         }
     }
 
@@ -64,20 +52,30 @@ public class EnemySpawner : UnityEngine.Object
         }
     }
 
-    private void SpawnEnemiesInRoom(Wall[] walls)
+    private void SpawnEnemiesInRoom(Wall[] wallls)
     {
-        for (int i = 0; i < walls.Length; i++)
+        for (int i = 0; i < wallls.Length; i++)
         {
-            if (walls?[i].gameObject.activeSelf == true)
-                SpawnEnemy(walls[i].SpawnPosition, walls[i].SpawnRotation);
+            if (wallls[i] != null && wallls[i].gameObject.activeSelf && !wallls[i].HasRoomInBack)
+            {
+                SimpleEnemy enemy = GetEnemy();
+                wallls[i].EnemySpawner.Spawn(enemy);
+            }
         }
     }
 
-    private SimpleEnemy SpawnEnemy(Vector3 position, Quaternion rotation)
+    private SimpleEnemy GetEnemy()
     {
-        SimpleEnemy enemy = GetEnemy();
-        enemy.transform.position = position;
-        enemy.transform.rotation = rotation;
-        return enemy;
+        int random = UnityEngine.Random.Range(1, 100);
+        for (int i = 1; i <= _spawnChance.Length; i++)
+        {
+            if (random <= _spawnChance[i])
+            {
+                SimpleEnemy enemy = PoolManager.Get(i).GetComponent<SimpleEnemy>();
+                enemy.Init(_player, _target, _enemiesHandler);
+                return enemy;
+            }
+        }
+        throw new InvalidOperationException();
     }
 }

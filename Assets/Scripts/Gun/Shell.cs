@@ -25,7 +25,7 @@ public class Shell : MonoBehaviour
         force = Random.Range(forceMin, forceMax);
         rig.AddForce(transform.right * force);
         rig.AddTorque(Random.insideUnitSphere * force);
-        Invoke("Return", lifeTime);
+        Invoke(nameof(Return), lifeTime);
     }
 
     private void OnDisable()

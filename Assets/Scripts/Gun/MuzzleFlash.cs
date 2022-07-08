@@ -4,6 +4,7 @@ public class MuzzleFlash : MonoBehaviour
 {
     [SerializeField] private Sprite[] _flashSprites;
     [SerializeField] private SpriteRenderer[] _spriteRenderers;
+    [SerializeField] private ParticleSystem bulletParticle;
     private int _flashIndex;
     private float _flashTime = 0.1f;
     public void Activate()
@@ -14,7 +15,8 @@ public class MuzzleFlash : MonoBehaviour
         {
             _spriteRenderers[i].sprite = _flashSprites[_flashIndex];
         }
-        Invoke("Deactivate", _flashTime);
+        bulletParticle.Play();
+        Invoke(nameof(Deactivate), _flashTime);
     }
 
     private void Start()

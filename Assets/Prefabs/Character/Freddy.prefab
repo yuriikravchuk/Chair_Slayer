@@ -39,10 +39,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9173486896310113999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f4b8fe1a2337042a5f34bf83f4a88e, type: 3}
+  m_Script: {fileID: 11500000, guid: a109810af26f1f4418a6b1fbb080f6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 348041329847590715}
 --- !u!114 &348041329847590715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +59,7 @@ MonoBehaviour:
   _canvasHealth: {fileID: 0}
   _animator: {fileID: 2855176214958672294}
   _gun: {fileID: 4810904477588089874}
-  isGuarded: 0
+  IsGuarded: 0
 --- !u!1001 &895979574101053382
 PrefabInstance:
   m_ObjectHideFlags: 0

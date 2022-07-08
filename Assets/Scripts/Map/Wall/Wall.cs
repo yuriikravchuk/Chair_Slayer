@@ -1,46 +1,39 @@
 ﻿using UnityEngine;
-using enemy;
-using System.Collections;
 
+[RequireComponent(typeof(WallEnemySpawner))]
 public class Wall : MonoBehaviour
 {
-    [SerializeField] private Animator _door;
-    [SerializeField] private Wall_Trigger _trigger;
-    [SerializeField] private Transform _spawn;
+    [SerializeField] private WallTrigger _trigger;
+    [SerializeField] private WallEnemySpawner _enemySpawner;
 
-    public Room ForwardRoom { get; private set; }
-    public bool HasRoomInBack;
-    public Vector3 SpawnPosition => _spawn.transform.position;
-    public Quaternion SpawnRotation => _spawn.transform.rotation;
+    public Room BackwardRoom { get; private set; }
+    public WallEnemySpawner EnemySpawner => _enemySpawner;
+    public bool HasRoomInBack => BackwardRoom.Active;
 
-    public void ChangeTriggerActive(bool active) => _trigger.gameObject.SetActive(active);
+    private Room _forwardRoom;
 
-    public void Activate(Room currentRoom, Vector3 position, Quaternion rotation)
+    public void Init(Room forwardRoom, Room backwardRoom)
     {
-        transform.position = position;
-        transform.rotation = rotation;
-        ForwardRoom = currentRoom;
+        _forwardRoom = forwardRoom;
+        BackwardRoom = backwardRoom;
+    }
+
+    public void Activate(Room forwardRoom, Quaternion rotation)
+    {
+        transform.SetPositionAndRotation(forwardRoom.transform.position, rotation);
+
+        if (BackwardRoom.Equals(forwardRoom))
+            SwitchRooms();
+
         gameObject.SetActive(true);
     }
 
-    public void OpenDoorForEnemy(SimpleEnemy enemy)
-    {
-        _door.SetBool("open", true);
-        StartCoroutine(WaitUntilEnemyEntryRoom(enemy));
-    }
+    public void ChangeTriggerActive(bool active) => _trigger.gameObject.SetActive(active);
 
-    private IEnumerator WaitUntilEnemyEntryRoom(SimpleEnemy enemy)
+    public void SwitchRooms()
     {
-        yield return new WaitUntil(() => 
-            Vector3.Distance(_spawn.position, enemy.transform.position) > 2.5);
-
-        ReleaseEnemy(enemy);
-        _door.SetBool("open", false);
-    }
-
-    private void ReleaseEnemy(SimpleEnemy enemy)
-    {
-        enemy.Entry = true;
-        EnemiesManager.instance.AddToList(enemy);
+        Room temp = _forwardRoom;
+        _forwardRoom = BackwardRoom;
+        BackwardRoom = temp;
     }
 }

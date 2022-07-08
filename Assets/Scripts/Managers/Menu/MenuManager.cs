@@ -1,106 +1,48 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-public class MenuManager : Singleton<MenuManager>
+public class MenuManager : MonoBehaviour
 {
-    private static bool GameIsPaused;
-    [SerializeField] private MainMenu mainMenu;
-    [SerializeField] private GameObject statBar;
-    [SerializeField] private GameObject options;
-    private int _money,_killCount, _mapLevel = 1, _level = 1;
-    [SerializeField] private Text money, killCount, mapLevel, level;
+    [SerializeField] private GameObject _mainMenu;
+    [SerializeField] private GameObject _playInterface;
+    [SerializeField] private GameObject _settings;
+    [SerializeField] private GameObject _loadScreen;
+    [SerializeField] private Text _loadProgress;
+    [SerializeField] private GameObject _UIHPBoss;
 
-    [SerializeField] private GameObject Loading;
-    [SerializeField] private Text loadProgress;
-
-    [SerializeField] private GameObject UIHPBoss;
-    public Image GreenHPBoss;
-
-    private void Awake()
-    {
-        LoadChStats();
-        SaveManager.deathEvent.AddListener(SaveChStats);
-        EnemiesManager.killEvent.AddListener(IncreaseKillCount);
-    }
     private void Start()
     {
         Time.timeScale = 0f;
     }
 
-    public void ShowMainMenu()
+    public void ShowMenu()
     {
-        mainMenu.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+        _mainMenu.SetActive(true);
+        _playInterface.SetActive(false);
     }
 
-    public void HideMainMenu()
+    public void HideMenu()
     {
-        mainMenu.gameObject.SetActive(false);
+        Time.timeScale = 1f;
+        _mainMenu.SetActive(false);
+        _playInterface.SetActive(true);
     }
 
-
-
-    public void ChangePauseState()
-    {
-        GameIsPaused = !GameIsPaused;
-        if (GameIsPaused)
-            Time.timeScale = 0f;
-        else
-            Time.timeScale = 1f;
-
-        mainMenu.gameObject.SetActive(GameIsPaused);
-        statBar.SetActive(!GameIsPaused);
-    }
 
     public void ShowBossUIHP()
     {
-        UIHPBoss.SetActive(true);
+        _UIHPBoss.SetActive(true);
     }
 
-    public void Victory()
+    public void HideBossUIHP()
     {
-        UIHPBoss.SetActive(false);
-        SaveManager.SaveChStats(_money,_level);
+        _UIHPBoss.SetActive(false);
     }
 
-    public void IncreaseMoney(int value)
-    {
-        _money += value;
-        money.text = _money.ToString();
-    }
-    
-    public void IncreaseKillCount()
-    {
-        _killCount++;
-        IncreaseMoney(3);
-        killCount.text = _killCount.ToString();
-    }
-
-    public void IncreaseMapLevel()
-    {
-        _mapLevel++;
-        mapLevel.text = _mapLevel.ToString();
-        SaveChStats();
-    }
-
-    private void SaveChStats()
-    {
-        SaveManager.SaveChStats(_money, _level);
-    }
-
-    private void LoadChStats()
-    {
-        SaveManager.LoadChStats(ref _money, ref _level);
-        money.text = _money.ToString();
-        killCount.text = _killCount.ToString();
-        level.text = _level.ToString();
-    }
 
     public void ShowOptions()
-    {
-        options.SetActive(true);
-    }
+        => _settings.SetActive(true);
 
     public void HideOptions()
-    {
-        options.SetActive(false);
-    }
+        => _settings.SetActive(false);
 }

@@ -12,7 +12,7 @@ using pool;
         public static PoolObject Get(int key) 
 		{
 			Init();
-			Pool p = Pools.Find(x => x.id == key);
+			Pool p = Pools.Find(x => x.Id == key);
 			if (p != null)
 				return p.Get();
 			return null;
@@ -24,7 +24,7 @@ using pool;
 				Object.DontDestroyOnLoad (Parent.gameObject);
 				for (int i = 0; i < PoolConfig.Pools.Count; i++) 
 				{
-					if (PoolConfig.Pools[i].prefab != null) 
+					if (PoolConfig.Pools[i].Prefab != null) 
 					{
 						Pool p = new Pool(PoolConfig.Pools[i]);
 						Pools.Add (p);

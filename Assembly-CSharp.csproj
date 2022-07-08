@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4E789D18-7155-56D1-F6AD-A17DF3EA5F00}</ProjectGuid>
+    <ProjectGuid>{BB6D1BC2-7A07-8304-6AE6-C53D9999F691}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -55,27 +55,30 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Managers\Menu\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\ChairEnemy.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\ChairEnemy.cs" />
     <Compile Include="Assets\Scripts\Managers\Menu\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Boost\DoubleDamageBoost.cs" />
-    <Compile Include="Assets\Scripts\Map\MapGeneratorsFacade.cs" />
-    <Compile Include="Assets\Scripts\Map\Legacy\MapGeneratorOld.cs" />
+    <Compile Include="Assets\Scripts\Map\Generators\MapGeneratorsFacade.cs" />
+    <Compile Include="Assets\Scripts\Legacy\MapGeneratorOld.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolObject.cs" />
     <Compile Include="Assets\Scripts\Managers\Singleton\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Map\Wall\WallEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolConfig.cs" />
-    <Compile Include="Assets\Scripts\Ch_Camera.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\RunState.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\Player.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\AimState.cs" />
+    <Compile Include="Assets\Scripts\Camera\MainCamera.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\RunState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\AimState.cs" />
+    <Compile Include="Assets\Scripts\Stats\Save\Save.cs" />
     <Compile Include="Assets\Scenes\Menu\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Map\Map.cs" />
     <Compile Include="Assets\Scripts\Managers\EnemiesManager.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\PlayerFire.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\BraveState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\PlayerFire.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\BraveState.cs" />
+    <Compile Include="Assets\Scripts\Map\Wall\WallTrigger.cs" />
+    <Compile Include="Assets\Scripts\Stats\Level\Level.cs" />
     <Compile Include="Assets\Scripts\Map\Wall\Wall.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\BossConfig.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\DefaultState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\Bosses\BossConfig.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\DefaultState.cs" />
     <Compile Include="Assets\Scripts\Map\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Gun\MuzzleFlash.cs" />
     <Compile Include="Assets\Scripts\Boost\Boost.cs" />
@@ -84,45 +87,58 @@
     <Compile Include="Assets\Scripts\Boost\SpeedBoost.cs" />
     <Compile Include="Assets\Scripts\Map\Generators\RoomsGenerator.cs" />
     <Compile Include="Assets\Scripts\Boost\HealBoost.cs" />
-    <Compile Include="Assets\Scripts\Managers\Menu\SaveManager.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\Boss1.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\Bosses\Boss1.cs" />
     <Compile Include="Assets\Scripts\Input\FloatingJoystick.cs" />
     <Compile Include="Assets\Scripts\Map\Generators\WallsGenerator.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\Enemy.cs" />
     <Compile Include="Assets\Scripts\Gun\Gun.cs" />
     <Compile Include="Assets\Scripts\Managers\BoostSpawner.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\StayState.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\PlayerStateMachine.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\FridgeEnemy.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\StayState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\PlayerMovementStateMachine.cs" />
+    <Compile Include="Assets\Scripts\Stats\Save\ISaveProvider.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\FridgeEnemy.cs" />
     <Compile Include="Assets\Scripts\Input\FireButton.cs" />
     <Compile Include="Assets\Scripts\Pool\Pool.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\PlayerFacade.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\BreakState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\PlayerFacade.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\BreakState.cs" />
     <Compile Include="Assets\Scripts\Map\MapConfig.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\WallWrecker.cs" />
+    <Compile Include="Assets\Scripts\Stats\UIView.cs" />
     <Compile Include="Assets\Scripts\Map\Room.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\SimpleEnemy.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\State Machine\GameState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\SimpleEnemy.cs" />
+    <Compile Include="Assets\Scripts\Stats\Level\LevelPresenter.cs" />
+    <Compile Include="Assets\Scripts\Map\Expansion\IBreakable.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolSetup.cs" />
-    <Compile Include="Assets\Scripts\Character\KdTree.cs" />
+    <Compile Include="Assets\Scripts\Characters\KdTree.cs" />
+    <Compile Include="Assets\Scripts\Stats\Wallet\Wallet.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\BraveStateMediator.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\DefaultStateMediator.cs" />
     <Compile Include="Assets\Scripts\Managers\Menu\Options.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\PlayerView.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\State Machine\GameStateSwitcher.cs" />
+    <Compile Include="Assets\Scripts\Stats\Save\SaveProvider.cs" />
     <Compile Include="Assets\Scripts\Map\Generators\FloorsGenerator.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\PlayerState.cs" />
-    <Compile Include="Assets\Scripts\Map\Expansion\RoomsUnlocker.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\PlayerState.cs" />
+    <Compile Include="Assets\Scripts\Legacy\RoomsUnlocker.cs" />
     <Compile Include="Assets\Scripts\Boost\GuardBoost.cs" />
-    <Compile Include="Assets\Scripts\Character\Health.cs" />
-    <Compile Include="Assets\Scripts\Map\Wall\Wall_Trigger.cs" />
+    <Compile Include="Assets\Scripts\Characters\Health.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Map\Generators\WindowsGenerator.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\State Machine\DefaultState.cs" />
+    <Compile Include="Assets\Scripts\Stats\Wallet\WalletPresenter.cs" />
     <Compile Include="Assets\Scripts\Managers\Singleton\Config.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\States\BraveWalkState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\BraveWalkState.cs" />
     <Compile Include="Assets\Scenes\Test\A.cs" />
     <Compile Include="Assets\Scenes\Test\B.cs" />
     <Compile Include="Assets\Scripts\Gun\Shell.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\LookAt.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemies\Boss.cs" />
-    <Compile Include="Assets\Scripts\Character\IDamageable.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\Breaker.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\LookAt.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\State Machine\BraveState.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\Bosses\Boss.cs" />
+    <Compile Include="Assets\Scripts\Characters\IDamageable.cs" />
     <Compile Include="Assets\Scripts\Input\InputMediator.cs" />
-    <Compile Include="Assets\Scripts\Map\Expansion\WallBreaker.cs" />
+    <Compile Include="Assets\Scripts\Stats\Save\SaveBinder.cs" />
+    <Compile Include="Assets\Scripts\Map\Expansion\BreakingWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

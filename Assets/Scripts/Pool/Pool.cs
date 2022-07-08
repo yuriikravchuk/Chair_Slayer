@@ -5,9 +5,9 @@ namespace pool
 {
 	public class Pool
 	{
-		public PoolSetup setup { get; private set; }
+		public PoolSetup Setup { get; private set; }
 
-		public int id { get { return setup.id; } }
+		public int Id { get { return Setup.Id; } }
 
 		public List<PoolObject> spawnedObj = new List<PoolObject>();
 
@@ -22,13 +22,13 @@ namespace pool
 
 		public Pool(PoolSetup setup)
 		{
-			this.setup = setup;
+			this.Setup = setup;
 		}
 
 
 		PoolObject Create(int index = -1)
 		{
-			PoolObject poolObject = Object.Instantiate(setup.prefab.gameObject).GetComponent<PoolObject>();
+			PoolObject poolObject = Object.Instantiate(Setup.Prefab.gameObject).GetComponent<PoolObject>();
 			if (poolObject != null)
 			{
 				poolObject.Init(this);

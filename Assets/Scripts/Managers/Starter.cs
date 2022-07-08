@@ -2,39 +2,50 @@
 
 public class Starter : MonoBehaviour
 {
-    private BoostSpawner _boostController;
-    private EnemiesManager _enemiesManager;
-    private MapGeneratorsFacade _mapGenerator;
-
     [SerializeField] private PlayerFacade _player;
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private FireButton _fireButton;
-    [SerializeField] private Room _startRoom;
-    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private WalletPresenter _walletPresenter;
+    [SerializeField] private LevelPresenter _levelPresenter;
+
+    //private BoostSpawner _boostController;
+    private EnemiesManager _enemiesManager;
+    private MapGeneratorsFacade _mapGenerator;
+
+
     private void Awake()
     {
-        InitManagers();
-        _player.Init();
-        var inputMediator = new InputMediator(_joystick, _fireButton, _player);
-        _joystick.Init(inputMediator);
+        InitInput();
 
         Map map = GetMap();
-        Breaker breaker = _player.GetComponent<Breaker>();
-        //var roomsUnlocker = new RoomsUnlocker(map, breaker);
-        var enemySpawner = new EnemySpawner(_player, _player.transform, map.Rooms);
+        BreakingWall BreakingWall = Instantiate(MapConfig.WreckingWall);
+        WallWrecker wallWrecker = _player.GetComponent<WallWrecker>();
+        wallWrecker.Init(BreakingWall);
 
-    }
+        _enemiesManager = new EnemiesManager();
+        _enemySpawner = Instantiate(_enemySpawner);
+        _enemySpawner.Init(_player, _player.transform, map.Rooms, _enemiesManager);
 
-    private void InitManagers()
-    {
-        //_boostController = new BoostSpawner();
-        _enemiesManager = Singleton<EnemiesManager>.instance;
-        _enemiesManager.Init(_mainCamera);
+        _player.Init(_enemiesManager);
+        var saveBinder = new SaveBinder(_levelPresenter, _walletPresenter);
+        saveBinder.Bind();
+
+
+        var gameStateMachine = new GameStateSwitcher(map, _enemySpawner, _player);
+        new BraveStateMediator(gameStateMachine, _enemiesManager);
+        new DefaultStateMediator(gameStateMachine, wallWrecker);
     }
 
     private Map GetMap()
     {
-        _mapGenerator = new MapGeneratorsFacade(_startRoom);
+        _mapGenerator = new MapGeneratorsFacade();
         return _mapGenerator.Generate();
+    }
+
+    private void InitInput()
+    {
+        var inputMediator = new InputMediator(_joystick, _fireButton, _player);
+        _joystick.Init(inputMediator);
     }
 }

@@ -3,21 +3,21 @@
 	[System.Serializable]
 	public class PoolSetup
 	{
-		public PoolObject prefab;
-		public int id;
-		public bool switchGameObject = true;
+		public PoolObject Prefab;
+		public int Id;
+		public bool DisableOnReturn;
 
 		public PoolSetup(PoolObject prefab, int id)
 		{
-			this.prefab = prefab;
-			this.id = id;
+			Prefab = prefab;
+			Id = id;
 		}
 
-		public PoolSetup(PoolObject prefab, int id, bool switchGameObject)
+		public PoolSetup(PoolObject prefab, int id, bool disableOnReturn)
 		{
-			this.prefab = prefab;
-			this.id = id;
-			this.switchGameObject = switchGameObject;
+			Prefab = prefab;
+			Id = id;
+			DisableOnReturn = disableOnReturn;
 		}
 	}
 }

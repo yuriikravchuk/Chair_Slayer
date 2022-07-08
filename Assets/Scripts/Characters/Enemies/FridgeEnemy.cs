@@ -1,0 +1,89 @@
+﻿using System.Collections;
+using UnityEngine;
+namespace enemy
+{
+    public class FridgeEnemy : SimpleEnemy
+    {
+        [SerializeField] private Animator hands;
+        [SerializeField] private Animation door;
+        [SerializeField] private Transform iceSpawn;
+        [SerializeField] private Transform fridge;
+        [SerializeField] private float minAtackDistance;
+        [SerializeField] private float AngleInDegrees;
+
+        private GameObject ice;
+        private bool aiming;
+        private float currentAngleInDegrees;
+        private Vector3 dir;
+        private float AngleInRadians;
+        private float g = Physics.gravity.y;
+        private float x;
+        private float y;
+
+        private void Update()
+        {
+            TryRotate();
+            if ((FromTo.magnitude > minAtackDistance && FromTo.magnitude < MaxAtackDistance) && Entry)
+                aiming = true;
+            else
+                aiming = false;
+
+            if(!aiming)
+            {
+                if (Entry)
+                {
+                    if (FromTo.magnitude > (MaxAtackDistance + minAtackDistance) / 2)
+                        Move();
+                }
+                else
+                    Move();
+
+            }
+            else if (Time.time > LastAtackTime + AtackSpeed)
+            {
+                StartCoroutine(Shoot());
+                LastAtackTime = Time.time;
+            }
+        }
+
+        private IEnumerator Shoot()
+        {
+            currentAngleInDegrees = fridge.localEulerAngles.x;
+            while (currentAngleInDegrees <= AngleInDegrees)
+            {
+                currentAngleInDegrees += 120 * Time.deltaTime;
+                dir = new Vector3(-currentAngleInDegrees, 0, 0);
+                fridge.localEulerAngles = dir;
+                yield return null;
+            }
+            door.Play("open");
+            hands.SetBool("open", true);
+            yield return new WaitForSeconds(0.5f);
+            if(FromTo.magnitude > minAtackDistance && FromTo.magnitude < MaxAtackDistance)
+                ThrowIce();
+            yield return new WaitForSeconds(0.5f);
+            door.Play("close");
+            hands.SetBool("open", false);
+            while (fridge.rotation != transform.rotation)
+            {
+                dir = Vector3.RotateTowards(fridge.forward, transform.forward, 0.01f, Time.deltaTime);
+                fridge.rotation = Quaternion.LookRotation(dir);
+                yield return null;
+            }
+            yield break;
+        }
+
+        private void ThrowIce()
+        {
+            x = FromToXZ.magnitude;
+            y = FromTo.y;
+            AngleInRadians = AngleInDegrees * Mathf.PI / 180;
+            float v2 = (g * x * x) / (2 * (y - Mathf.Tan(AngleInRadians) * x) * Mathf.Pow(Mathf.Cos(AngleInRadians), 2));
+            float v = Mathf.Sqrt(Mathf.Abs(v2));
+
+            ice = PoolManager.Get(11).gameObject;
+            ice.transform.position = iceSpawn.position;
+            ice.GetComponent<Rigidbody>().velocity = iceSpawn.forward * v;
+        }
+    }
+}
