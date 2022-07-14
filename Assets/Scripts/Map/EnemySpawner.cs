@@ -18,7 +18,6 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         TrySpawnEnemies();
-        //SDebug.Log(_enemiesHandler._enemies.ToList().Count);
     }
 
     public void Init(IDamageable player, Transform target, Room[,] rooms, EnemiesManager enemiesHandler)

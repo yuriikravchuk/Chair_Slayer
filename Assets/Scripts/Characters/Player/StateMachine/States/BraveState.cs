@@ -16,6 +16,8 @@ namespace playerStateMachine
         protected override void OnExit() => View.SetMass(1);
 
         protected override void TryRotate() => View.SetRotation(MoveVector);
+
+        public override bool IsDamagable() => false;
     }
 
 }

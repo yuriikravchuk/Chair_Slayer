@@ -1,7 +1,7 @@
 ﻿public class BraveStateMediator 
 {
     private int _killCount;
-    private readonly int _killsToBraveState = 20;
+    private readonly int _killsToBraveState = 2;
     private readonly GameStateSwitcher _gameStateSwitcher;
     public BraveStateMediator(GameStateSwitcher gameStateSwitcher, EnemiesManager enemiesManager)
     {

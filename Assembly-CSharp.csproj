@@ -94,7 +94,7 @@
     <Compile Include="Assets\Scripts\Gun\Gun.cs" />
     <Compile Include="Assets\Scripts\Managers\BoostSpawner.cs" />
     <Compile Include="Assets\Scripts\Characters\Player\StateMachine\States\StayState.cs" />
-    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\PlayerMovementStateMachine.cs" />
+    <Compile Include="Assets\Scripts\Characters\Player\StateMachine\PlayeStateMachine.cs" />
     <Compile Include="Assets\Scripts\Stats\Save\ISaveProvider.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemies\FridgeEnemy.cs" />
     <Compile Include="Assets\Scripts\Input\FireButton.cs" />
@@ -139,6 +139,8 @@
     <Compile Include="Assets\Scripts\Input\InputMediator.cs" />
     <Compile Include="Assets\Scripts\Stats\Save\SaveBinder.cs" />
     <Compile Include="Assets\Scripts\Map\Expansion\BreakingWall.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\PauseStateMediator.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameState\BossStateMediator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

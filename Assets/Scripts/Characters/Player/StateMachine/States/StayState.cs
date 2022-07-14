@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-namespace playerStateMachine
+﻿namespace playerStateMachine
 {
     public class StayState : PlayerState
     {

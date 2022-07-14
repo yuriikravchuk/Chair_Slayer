@@ -6,7 +6,12 @@ namespace playerStateMachine
     {
         public DefaultState(List<PlayerState> subStates) => SubStates = subStates;
 
-        protected override void InitSubState() => SetSubState<StayState>();
+        protected override void InitSubState() 
+        {
+            Moving = false;
+            Aiming = false;
+            SetSubState<StayState>();
+        }
     }
 
 }

@@ -8,5 +8,8 @@ namespace playerStateMachine
 
         protected override void OnEnter()
             => View.SetBreak();
+
+        public override bool IsDamagable() 
+            => false;
     }
 }

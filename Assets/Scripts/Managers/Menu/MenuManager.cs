@@ -14,14 +14,14 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void ShowMenu()
+    public void Show()
     {
         Time.timeScale = 0f;
         _mainMenu.SetActive(true);
         _playInterface.SetActive(false);
     }
 
-    public void HideMenu()
+    public void Hide()
     {
         Time.timeScale = 1f;
         _mainMenu.SetActive(false);
