@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using playerStateMachine;
 
 public class InputMediator
 {
     private readonly FloatingJoystick _joystick;
     private readonly FireButton _fireButton;
-    private readonly PlayerStateMachine _player;
-    public InputMediator(FloatingJoystick joystick, FireButton fireButton, PlayerStateMachine player)
+    private readonly PlayerFacade _player;
+    public InputMediator(FloatingJoystick joystick, FireButton fireButton, PlayerFacade player)
     {
         _joystick = joystick;
         _fireButton = fireButton;

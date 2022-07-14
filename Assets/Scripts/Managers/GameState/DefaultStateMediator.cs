@@ -9,6 +9,10 @@ public class DefaultStateMediator
         wallWrecker.EndWrecking += SetDefaultState;
     }
 
-    private void SetDefaultState() => _gameStateSwitcher.SetDefaultState();
+    private void SetDefaultState()
+    {
+        Debug.Log("End");
+        _gameStateSwitcher.SetDefaultState();
+    }
 
 }

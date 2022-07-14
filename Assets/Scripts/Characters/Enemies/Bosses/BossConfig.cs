@@ -1,20 +1,35 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-
 namespace enemy
 {
 	[CreateAssetMenu(fileName = "BossConfig")]
-	public class BossConfig : ScriptableObject, IBossProvider
+	public class BossConfig : ScriptableObject
 	{
-		[SerializeField] private List<Boss> _bosses = new List<Boss>();
+		[SerializeField] List<Boss> _bosses = new List<Boss>();
 
-        public Boss GetBoss(int level) 
-			=> _bosses.First(x => x.Level == level);
-    }
+		public static List<Boss> bosses
+		{
+			get
+			{
+				return instance._bosses;
+			}
+		}
 
-	public interface IBossProvider
-    {
-		Boss GetBoss(int level);
-    }
+		static BossConfig _instance;
+		public static BossConfig instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					_instance = (BossConfig)Resources.Load("BossConfig");
+					if (_instance == null)
+					{
+						_instance = BossConfig.CreateInstance<BossConfig>();
+					}
+				}
+				return _instance;
+			}
+		}
+	}
 }

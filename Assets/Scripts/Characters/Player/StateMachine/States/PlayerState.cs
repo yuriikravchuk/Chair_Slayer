@@ -61,8 +61,6 @@ namespace playerStateMachine
         protected virtual void OnUpdate() { }
         protected virtual void TryMove() { }
         protected virtual void TryRotate() { }
-
-        public virtual bool IsDamagable() => true;
         public virtual bool CanFire() 
         {
             if (SubState!= null &&  SubState.CanFire())

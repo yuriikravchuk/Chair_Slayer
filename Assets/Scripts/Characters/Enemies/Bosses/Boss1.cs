@@ -7,7 +7,7 @@ namespace enemy
         [SerializeField] private Animator animator;
         private int atackType = 0;
         bool _isMoving;
-        bool IsMoving
+        bool isMoving
         {
             set
             {
@@ -30,7 +30,7 @@ namespace enemy
         void Atack()
         {
             transform.LookAt(Target);
-            IsMoving = false;
+            isMoving = false;
             atackType = Random.Range(1, 4);
             if (atackType > 0)
             {
@@ -43,7 +43,7 @@ namespace enemy
 
         private void Move()
         {
-            IsMoving = true;
+            isMoving = true;
             transform.LookAt(Target);
         }
     }
