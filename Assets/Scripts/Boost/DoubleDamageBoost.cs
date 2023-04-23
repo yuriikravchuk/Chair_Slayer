@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using player;
 
 public class DoubleDamageBoost : Boost
 {
-    protected override void GiveBoost(PlayerFacade player)
+    protected override void GiveBoost(Player player)
     {
         //Guard(player);
     }

@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class KdTree<T> where T : Component
+public class KdTree<T>: IClosestTargetFinder where T : Component
 {
+    public int Count { get; private set; }
+
     private KdNode _root;
     private KdNode _last;
     private KdNode[] _open;
 
-    public int Count { get; private set; }
-
-    public Vector3 FindClosest(Vector3 position)
+    public Vector3 GetClosestPosition(Vector3 position)
     {
-        if (_root == null)
-            return Vector3.zero;
+        if (Count <= 0)
+            return position;
 
         var nearestDist = float.MaxValue;
         KdNode nearest = null;
@@ -60,18 +59,8 @@ public class KdTree<T> where T : Component
         return nearest.component.transform.position;
     }
 
-    public void Add(T item)
-    {
-        Add(new KdNode() { component = item });
-    }
-
-
-    //public void RemoveAt(int index)
-    //{
-    //    var list = new List<KdNode>(GetNodes());
-    //    list.RemoveAt(index);
-    //    ResetTree(list);
-    //}
+    public void Add(T item) 
+        => Add(new KdNode() { component = item });
 
     public void Remove(T component)
     {
@@ -86,9 +75,8 @@ public class KdTree<T> where T : Component
     {
         ClearList();
         foreach (var node in list)
-        {
             node.next = null;
-        }
+
         foreach (var node in list)
             Add(node);
     }
@@ -119,13 +107,9 @@ public class KdTree<T> where T : Component
     }
 
     private float Distance(Vector3 a, Vector3 b)
-    {
-            return (a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z);
-    }
-    private float GetSplitValue(int level, Vector3 position)
-    {
-            return (level % 2 == 0) ? position.x : position.z;
-    }
+        => (a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z);
+    private float GetSplitValue(int level, Vector3 position) 
+        => (level % 2 == 0) ? position.x : position.z;
 
     private void Add(KdNode newNode)
     {

@@ -3,9 +3,10 @@ namespace pool
 {
 	public class PoolObject : MonoBehaviour
 	{
+		public bool Free { get; private set; } = true;
+
 		private bool _isSpawned = false;
 		private bool _disableObject = true;
-		public bool Free { get; private set; } = true;
 
 		public void Init(Pool pool)
 		{
@@ -30,14 +31,12 @@ namespace pool
 			if (_isSpawned)
 			{
 				Free = true;
-				transform.SetParent(PoolManager.Parent);
+				transform.SetParent(PoolsContainer.Parent);
 				if (_disableObject)
 					gameObject.SetActive(false);
 			}
 			else
-			{
 				Destroy(gameObject);
-			}
 		}
 	}
 }

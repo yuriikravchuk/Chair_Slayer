@@ -2,69 +2,59 @@
 using UnityEngine.UI;
 namespace enemy
 {
-    public abstract class Enemy : MonoBehaviour, IDieable
+    public abstract class Enemy : MonoBehaviour
     {
         [SerializeField] protected float AtackSpeed = 1;
         [SerializeField] protected float MaxAtackDistance = 1;
-        [SerializeField] protected float MoveSpeed = 50;
         [SerializeField] private int _maxHealth = 100;
-        [SerializeField] private ParticleSystem blood;
-
-        public Image UIHP;
+        [SerializeField] private ParticleSystem _blood;
+        [SerializeField] private Image _UIHP;
 
         protected IDamageable Player;
         protected Transform Target;
         protected float LastAtackTime;
 
         private Health _health;
-        private IEnemiesHandler _enemiesHandler;
+        private EnemiesFactory _fabric;
         private bool _inited;
 
-        public void Init(IDamageable player, Transform target, IEnemiesHandler enemiesHandler)
+        public void Init(IDamageable player, Transform target, EnemiesFactory enemiesHandler)
         {
             if(_inited == false)
             {
-                _health = new Health(_maxHealth, this);
+                _health = new Health(_maxHealth);
+                _health.Died += Die;
                 Player = player;
                 Target = target;
-                _enemiesHandler = enemiesHandler;
+                _fabric = enemiesHandler;
                 _inited = true;
             }
             SetMaxHealth();
         }
 
-        public void Enter()
-        {
-            _enemiesHandler.AddToList(this);
-            OnEnter();
-        }
-
         public void Die()
         {
-            _enemiesHandler.RemoveFromList(this);
+            _fabric.Return(this);
             OnDie();
         }
 
         public void ApplyDamage(int damage)
         {
             _health.ApplyDamage(damage);
-            UIHP.fillAmount = (float)_health.Value / _maxHealth;
-            blood.Play();
+            _UIHP.fillAmount = (float)_health.Value / _maxHealth;
+            _blood.Play();
         }
 
-        public virtual bool IsDamagable()
-        {
-            return true;
-        }
+        public virtual bool IsDamagable() => true;
 
-        protected abstract void OnEnter();
+        public abstract void Enter();
 
         protected abstract void OnDie();
 
         private void SetMaxHealth() 
         { 
             _health.SetMaxValue();
-            UIHP.fillAmount = 1;
+            _UIHP.fillAmount = 1;
         }
     }
 }

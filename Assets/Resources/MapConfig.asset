@@ -20,3 +20,9 @@ MonoBehaviour:
   _wall: {fileID: 1324520708552306552, guid: 905a4b94a12eb0e47ba5d75de872133d, type: 3}
   _window: {fileID: 3667531473244848282, guid: 9d05523686f7f1446acd0d0af5cb6b21, type: 3}
   _floor: {fileID: 6290901039109788589, guid: 7cd26df1ad628464997e87cdeb7b140f, type: 3}
+  _startRoom: {fileID: 6321197479414994248, guid: 3dc94c3531590ee44b64cff85a33b1a1,
+    type: 3}
+  _bossRoom: {fileID: 919132149155446097, guid: 08860826b6d3fe749a7641ae8e66908d,
+    type: 3}
+  _simpleRooms:
+  - {fileID: 1735825702514501890, guid: 20d26bd9cf379094db090ab265da12d9, type: 3}

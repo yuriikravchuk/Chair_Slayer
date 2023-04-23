@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace playerStateMachine
+﻿namespace player
 {
     public class AimState : PlayerState
     {
@@ -9,16 +7,17 @@ namespace playerStateMachine
             View = player;
         }
 
-        public override bool CanFire() => true;
-
         protected override void OnUpdate()
         {
             TryMove();
             TryRotate();
+            TryFire();
         }
         protected override void OnEnter() => View.Aim();
 
         protected override void OnExit() => View.StopAim();
+
+        protected override void TryFire() => View.TryFire();
 
         protected override void TryRotate() => View.LookAtClosestEnemy();
 

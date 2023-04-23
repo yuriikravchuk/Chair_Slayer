@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using pool;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace pool
@@ -11,4 +12,3 @@ namespace pool
 		public static List<PoolSetup> Pools => Instance._pools;
 	}
 }
-

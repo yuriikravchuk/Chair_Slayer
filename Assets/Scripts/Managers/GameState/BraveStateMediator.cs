@@ -1,11 +1,11 @@
 ﻿public class BraveStateMediator 
 {
     private int _killCount;
-    private readonly int _killsToBraveState = 20;
+    private readonly int _killsToBraveState = 2;
     private readonly GameStateSwitcher _gameStateSwitcher;
-    public BraveStateMediator(GameStateSwitcher gameStateSwitcher, EnemiesManager enemiesManager)
+    public BraveStateMediator(GameStateSwitcher gameStateSwitcher, IEnemyDieEventHandler eventHandler)
     {
-        enemiesManager.EnemyDie += IncreaseKillCount;
+        eventHandler.EnemyDie += IncreaseKillCount;
         _gameStateSwitcher = gameStateSwitcher;
     }
 
@@ -13,7 +13,6 @@
     {
         _killCount++;
         if (_killCount >= _killsToBraveState)
-            _gameStateSwitcher.SetBraveState();
-            
+            _gameStateSwitcher.SetBraveState();  
     }
 }

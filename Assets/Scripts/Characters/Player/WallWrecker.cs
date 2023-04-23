@@ -1,23 +1,25 @@
 ﻿using System;
 using UnityEngine;
-[RequireComponent(typeof(PlayerFacade))]
+using player;
+
 public class WallWrecker : MonoBehaviour
 {
-    [SerializeField] private PlayerFacade _player;
-
     public event Action EndWrecking;
 
     private Wall _wall;
     private IBreakable _breakingWall;
-    
+    private PlayerStateMachine _player;
 
-    public void Init(IBreakable breakingWall)
-        => _breakingWall = breakingWall;
+    public void Init(IBreakable breakingWall, PlayerStateMachine player)
+    {
+        _breakingWall = breakingWall;
+        _player = player;
+    }
 
     public void StartWrecking(Wall wall)
     {
         _wall = wall;
-        _player.SetBreakState();
+        _player.GetRootState<BreakState>();
     }
 
     public void Wreck() // call in animation

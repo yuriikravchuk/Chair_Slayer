@@ -1,51 +1,56 @@
-﻿using UnityEngine;
+﻿using enemy;
+using player;
+using UnityEngine;
+using map;
 
 public class Starter : MonoBehaviour
 {
-    [SerializeField] private PlayerFacade _player;
+    [SerializeField] private PlayerStateMachine _playerStateMachine;
+    [SerializeField] private PlayerView _playerView;
+    [SerializeField] private WallWrecker wallWrecker;
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private FireButton _fireButton;
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private WalletPresenter _walletPresenter;
     [SerializeField] private LevelPresenter _levelPresenter;
 
-    //private BoostSpawner _boostController;
-    private EnemiesManager _enemiesManager;
-    private MapGeneratorsFacade _mapGenerator;
-
+    private const int PLAYEER_HEALTH = 100;
 
     private void Awake()
     {
-        InitInput();
-
         Map map = GetMap();
-        BreakingWall BreakingWall = Instantiate(MapConfig.WreckingWall);
-        WallWrecker wallWrecker = _player.GetComponent<WallWrecker>();
-        wallWrecker.Init(BreakingWall);
+        map.StartRoom.Activate();
 
-        _enemiesManager = new EnemiesManager();
-        _enemySpawner = Instantiate(_enemySpawner);
-        _enemySpawner.Init(_player, _player.transform, map.Rooms, _enemiesManager);
-
-        _player.Init(_enemiesManager);
         var saveBinder = new SaveBinder(_levelPresenter, _walletPresenter);
         saveBinder.Bind();
 
+        
+        ISimpleEnemyProvider enemyProvider = new SimpleEnemyPoolProvider();
+        IBossProvider bossProvider = ScriptableObject.CreateInstance<BossConfig>();
 
-        var gameStateMachine = new GameStateSwitcher(map, _enemySpawner, _player);
-        new BraveStateMediator(gameStateMachine, _enemiesManager);
+        var enemiesContainer = new EnemiesContainer();
+        var enemiesFabric = new EnemiesFactory(enemyProvider, bossProvider);
+        new EnemiesContainerFabricMediator(enemiesContainer, enemiesFabric);
+
+        _playerStateMachine.Init(_playerView);
+        var player = new Player(PLAYEER_HEALTH, _playerStateMachine.GetStartState());
+        _playerView.Init(player, enemiesContainer, map.StartPosition);
+        new PlayerStateMediator(player, _playerStateMachine);
+
+        _enemySpawner = Instantiate(_enemySpawner);
+        _enemySpawner.Init(player, _playerView.transform, map.Rooms, enemiesFabric);
+
+        BreakingWall breakingWall = Instantiate(MapConfig.WreckingWall);
+        wallWrecker.Init(breakingWall, _playerStateMachine);
+
+        var gameStateMachine = new GameStateSwitcher(map, _enemySpawner, _playerStateMachine);
+        new BraveStateMediator(gameStateMachine, enemiesContainer);
         new DefaultStateMediator(gameStateMachine, wallWrecker);
-    }
 
-    private Map GetMap()
-    {
-        _mapGenerator = new MapGeneratorsFacade();
-        return _mapGenerator.Generate();
-    }
-
-    private void InitInput()
-    {
-        var inputMediator = new InputMediator(_joystick, _fireButton, _player);
+        var inputMediator = new InputMediator(_joystick, _fireButton, _playerStateMachine);
         _joystick.Init(inputMediator);
     }
+
+    private Map GetMap() 
+        => new MapBuildingDirector().GetMap();
 }

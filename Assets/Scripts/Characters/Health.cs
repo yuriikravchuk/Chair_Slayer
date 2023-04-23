@@ -1,20 +1,13 @@
 ﻿using System;
-
-public interface IDieable
-{
-    void Die();
-}
 public class Health
 {
     public float Value { get; private set; }
-    private readonly int _maxValue;
-    private readonly IDieable _character;
+    public event Action Died;
 
-    public Health(int maxValue, IDieable character)
-    {
-        _maxValue = maxValue;
-        _character = character;
-    }
+    private readonly int _maxValue;
+
+    public Health(int maxValue) 
+        => _maxValue = maxValue;
 
     public void ApplyDamage(int damage)
     {
@@ -25,19 +18,19 @@ public class Health
         if (Value <= 0)
         {
             Value = 0;
-            _character.Die();
+            Died.Invoke();
         }
     }
 
     public void Heal(int healAmount)
     {
+        if (healAmount < 0)
+            throw new ArgumentOutOfRangeException(nameof(healAmount));
+
         Value += healAmount;
         if (Value > _maxValue)
             Value = _maxValue;
     }
 
-    public void SetMaxValue()
-    {
-        Value = _maxValue;
-    }
+    public void SetMaxValue() => Value = _maxValue;
 }

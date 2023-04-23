@@ -1,5 +1,5 @@
-﻿public interface ISaveProvider
+﻿public interface ISaveProvider<T>
 {
-    Save GetSave();
-    void UpdateSave(int money, int characterLevel);
+    T TryGetSave();
+    void UpdateSave(T save);
 }

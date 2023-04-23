@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace playerStateMachine
+namespace player
 {
     public class RunState : PlayerState
     {

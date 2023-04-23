@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using player;
 
 public class HealBoost : Boost
 {
-    protected override void GiveBoost(PlayerFacade player)
+    protected override void GiveBoost(Player player)
     {
         //Guard(player);
     }
 
-    private void Heal(PlayerFacade player)
+    private void Heal(Player player)
     {
 
     }

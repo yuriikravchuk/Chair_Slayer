@@ -2,32 +2,31 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class SaveProvider : ISaveProvider
+public class SaveProvider<T> : ISaveProvider<T>
 {
-    private Save save = new Save();
+    private T save;
     private readonly string filePath = Application.persistentDataPath + "/save3.gm";
     private readonly BinaryFormatter bf = new BinaryFormatter();
     
-    public Save GetSave()
+    public T TryGetSave()
     {
         if (!File.Exists(filePath))
         {
-            Debug.Log("Not loaded save");
-            return null;
+            return default;
         }
-
-        var fileStream = new FileStream(filePath, FileMode.Open);
-        fileStream.Position = 0;
-        save = (Save)bf.Deserialize(fileStream);
-        fileStream.Close();
-
-        return save;
+        else
+        {
+            var fileStream = new FileStream(filePath, FileMode.Open);
+            fileStream.Position = 0;
+            save = (T)bf.Deserialize(fileStream);
+            fileStream.Close();
+            return save;
+        }
     }
 
-    public void UpdateSave(int money, int characterLevel)
+    public void UpdateSave(T save)
     {
         var fileStream = new FileStream(filePath, FileMode.Create);
-        save.UpdateStats(money, characterLevel);
         bf.Serialize(fileStream, save);
         fileStream.Close();
     }

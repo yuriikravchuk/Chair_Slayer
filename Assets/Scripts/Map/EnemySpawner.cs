@@ -1,81 +1,84 @@
 ﻿using UnityEngine;
-using enemy;
 using System;
 
-public class EnemySpawner : MonoBehaviour
+namespace enemy
 {
-    public bool SpawnActive = true;
-
-    private IDamageable _player;
-    private Transform _target;
-    private Room[,] _rooms;
-    private EnemiesManager _enemiesHandler;
-    private readonly int[] _spawnChance = { 101, 102 };
-    private readonly int _spawnSpeed = 7;
-    private float _maxX, _maxY;
-    private float _lastSpawnTime;
-
-    private void Update()
+    public class EnemySpawner : MonoBehaviour
     {
-        TrySpawnEnemies();
-        //SDebug.Log(_enemiesHandler._enemies.ToList().Count);
-    }
+        public bool SpawnActive = true;
 
-    public void Init(IDamageable player, Transform target, Room[,] rooms, EnemiesManager enemiesHandler)
-    {
-        _player = player;
-        _target = target;
-        _rooms = rooms;
-        _maxX = _rooms.GetLength(0);
-        _maxY = _rooms.GetLength(1);
-        _enemiesHandler = enemiesHandler;
-    }
+        private IDamageable _player;
+        private Transform _target;
+        private Room[,] _rooms;
+        private EnemiesFactory _fabric;
+        private readonly int[] _spawnChance = { 101, 102 };
+        private readonly int _spawnSpeed = 7;
+        private float _maxX, _maxY;
+        private float _lastSpawnTime;
 
-    public void TrySpawnEnemies()
-    {
-        if (SpawnActive && Time.time > _lastSpawnTime + _spawnSpeed)
+        private void Update()
         {
-            _lastSpawnTime = Time.time;
-            SpawnEnemies();
+            TrySpawnEnemies();
+            //SDebug.Log(_enemiesHandler._enemies.ToList().Count);
         }
-    }
 
-    private void SpawnEnemies()
-    {
-        for (int x = 0; x < _maxX; x++)
+        public void Init(IDamageable player, Transform target, Room[,] rooms, EnemiesFactory fabric)
         {
-            for (int y = 0; y < _maxY; y++)
+            _player = player;
+            _target = target;
+            _rooms = rooms;
+            _maxX = _rooms.GetLength(0);
+            _maxY = _rooms.GetLength(1);
+            _fabric = fabric;
+        }
+
+        public void TrySpawnEnemies()
+        {
+            if (SpawnActive && Time.time > _lastSpawnTime + _spawnSpeed)
             {
-                if (_rooms[x, y].Active == true)
-                    SpawnEnemiesInRoom(_rooms[x, y].walls);
+                _lastSpawnTime = Time.time;
+                SpawnEnemies();
             }
         }
-    }
 
-    private void SpawnEnemiesInRoom(Wall[] wallls)
-    {
-        for (int i = 0; i < wallls.Length; i++)
+        private void SpawnEnemies()
         {
-            if (wallls[i] != null && wallls[i].gameObject.activeSelf && !wallls[i].HasRoomInBack)
+            for (int x = 0; x < _maxX; x++)
             {
-                SimpleEnemy enemy = GetEnemy();
-                wallls[i].EnemySpawner.Spawn(enemy);
+                for (int y = 0; y < _maxY; y++)
+                {
+                    if (_rooms[x, y].Active == true)
+                        SpawnEnemiesInRoom(_rooms[x, y].Walls);
+                }
             }
         }
-    }
 
-    private SimpleEnemy GetEnemy()
-    {
-        int random = UnityEngine.Random.Range(1, 100);
-        for (int i = 1; i <= _spawnChance.Length; i++)
+        private void SpawnEnemiesInRoom(Wall[] wallls)
         {
-            if (random <= _spawnChance[i])
+            for (int i = 0; i < wallls.Length; i++)
             {
-                SimpleEnemy enemy = PoolManager.Get(i).GetComponent<SimpleEnemy>();
-                enemy.Init(_player, _target, _enemiesHandler);
-                return enemy;
+                if (wallls[i] != null && wallls[i].gameObject.activeSelf && !wallls[i].HasRoomInBack)
+                {
+                    SimpleEnemy enemy = GetEnemy();
+                    wallls[i].EnemySpawner.Spawn(enemy);
+                }
             }
         }
-        throw new InvalidOperationException();
+
+        private SimpleEnemy GetEnemy()
+        {
+            int random = UnityEngine.Random.Range(1, 100);
+            for (int i = 1; i <= _spawnChance.Length; i++)
+            {
+                if (random <= _spawnChance[i])
+                {
+                    SimpleEnemy enemy = _fabric.GetSimpleEnemy(i);
+                    enemy.Init(_player, _target, _fabric);
+                    return enemy;
+                }
+            }
+            throw new InvalidOperationException();
+        }
     }
 }
+

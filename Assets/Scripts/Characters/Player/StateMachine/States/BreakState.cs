@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-namespace playerStateMachine
+﻿namespace player
 {
     public class BreakState : PlayerState
     {

@@ -16,10 +16,7 @@ public class FloatingJoystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPo
 	private Vector2 _inputVector;
 	private Vector2 _pos;
 
-	public void Init(InputMediator mediator)
-    {
-		_mediator = mediator;
-    }
+    public void Init(InputMediator mediator) => _mediator = mediator;
 
     public virtual void OnPointerDown(PointerEventData ped)
 	{

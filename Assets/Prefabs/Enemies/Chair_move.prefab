@@ -42,6 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77ce17ed63566646bed6d88f9cbf0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _UIHP: {fileID: 8025344359135705670}
 --- !u!1 &8067551672351929697
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,8 +624,8 @@ MonoBehaviour:
   MaxAtackDistance: 1
   MoveSpeed: 50
   _maxHealth: 100
-  blood: {fileID: 2939784355220873705}
-  UIHP: {fileID: 8025344359135705670}
+  _blood: {fileID: 2939784355220873705}
+  _UIHP: {fileID: 8025344359135705670}
   _poolObject: {fileID: -5790331138079054971}
   _collider: {fileID: 2202378404473771265}
   _rigidbody: {fileID: -5172214609020886435}

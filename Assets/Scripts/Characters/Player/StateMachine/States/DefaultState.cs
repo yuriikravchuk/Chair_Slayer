@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace playerStateMachine
+namespace player
 {
     public class DefaultState : PlayerState
     {

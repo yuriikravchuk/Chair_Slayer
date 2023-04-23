@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using pool;
+using player;
 
 public abstract class Boost : MonoBehaviour
 {
@@ -8,14 +9,14 @@ public abstract class Boost : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<PlayerFacade>() != null)
+        if(other.GetComponent<Player>() != null)
         {
-            GiveBoost(other.GetComponent<PlayerFacade>());
+            GiveBoost(other.GetComponent<Player>());
             Destroy(gameObject);
 //          BoostController.instance.GiveBoost(boostType, other.GetComponent<PlayerModel>());
             //poolObject.Return();
         }
     }
 
-    protected abstract void GiveBoost(PlayerFacade player);
+    protected abstract void GiveBoost(Player player);
 }

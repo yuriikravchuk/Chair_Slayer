@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b877a7aa8ff95c4b83ba924be72db3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walls:
+  _roof: {fileID: 2158174574786732842}
+  Walls:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  roof: {fileID: 2158174574786732842}
 --- !u!1001 &497190242074633328
 PrefabInstance:
   m_ObjectHideFlags: 0

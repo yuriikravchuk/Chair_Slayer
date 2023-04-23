@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace playerStateMachine
+namespace player
 {
     public abstract class PlayerState
     {
@@ -56,18 +56,17 @@ namespace playerStateMachine
                 SubState.SetMoveVector(moveVector);
         }
 
+
+
+        public virtual bool IsDamageable()
+            => SubState != null ? SubState.IsDamageable() : true;
+
         protected virtual void OnExit() { }
         protected virtual void OnEnter() { }
         protected virtual void OnUpdate() { }
         protected virtual void TryMove() { }
         protected virtual void TryRotate() { }
-        public virtual bool CanFire() 
-        {
-            if (SubState!= null &&  SubState.CanFire())
-                return true;
-            else
-                return false; 
-        }
+        protected virtual void TryFire() { }
         protected virtual void TryTransit() { }
         protected virtual void InitSubState() { }
     }

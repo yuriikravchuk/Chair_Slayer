@@ -9,8 +9,8 @@ Rigidbody:
   m_GameObject: {fileID: 9173486896310113999}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 48.27
+  m_AngularDrag: 22.4
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a109810af26f1f4418a6b1fbb080f6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &348041329847590715
+--- !u!114 &746868467682235893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9173486896310113999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c69327996fab90b44adb27ecd8df7fbb, type: 3}
+  m_Script: {fileID: 11500000, guid: b141902c76a6bb346a1c2dedad0c36a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 2085915412}
@@ -59,7 +59,18 @@ MonoBehaviour:
   _canvasHealth: {fileID: 0}
   _animator: {fileID: 2855176214958672294}
   _gun: {fileID: 4810904477588089874}
-  IsGuarded: 0
+--- !u!114 &5480938059862304095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173486896310113999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6a9e87a3897bb429480ac8f0f5a50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &895979574101053382
 PrefabInstance:
   m_ObjectHideFlags: 0

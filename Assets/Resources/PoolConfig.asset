@@ -20,7 +20,7 @@ MonoBehaviour:
   - Prefab: {fileID: 1574641919612809360, guid: c0c54ea318d828b4a964aac24ca1afb8,
       type: 3}
     Id: 2
-    DisableOnReturn: 1
+    DisableOnReturn: 0
   - Prefab: {fileID: 4774664035125872198, guid: 22745cd6bffd40046a1e757453a2fee8,
       type: 3}
     Id: 22

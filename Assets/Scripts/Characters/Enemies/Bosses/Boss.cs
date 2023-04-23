@@ -3,12 +3,10 @@
     [System.Serializable]
     public class Boss : Enemy
     {
-        protected override void OnDie()
-        {
-            Destroy(gameObject);
-        }
+        public int Level { get; protected set; }
+        protected override void OnDie() => Destroy(gameObject);
 
-        protected override void OnEnter()
+        public override void Enter()
         {
             
         }

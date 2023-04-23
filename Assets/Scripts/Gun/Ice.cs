@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using player;
 
 public class Ice : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Ice : MonoBehaviour
         {
             if(colliders[i].tag == "Character")
             {
-                colliders[i].GetComponent<PlayerFacade>();
+                colliders[i].GetComponent<Player>();
                 break;
             }
         }

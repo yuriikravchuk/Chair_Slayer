@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
 
     private void SpawnShell()
     {
-        _shell = PoolManager.Get(22).transform;
+        _shell = PoolsContainer.Get(22).transform;
         _shell.SetPositionAndRotation(_sh_spawn.position, _sh_spawn.rotation);
         _shell.gameObject.SetActive(true);
     }

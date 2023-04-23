@@ -1,14 +1,17 @@
-﻿namespace gameState
+﻿using enemy;
+using player;
+
+namespace gameState
 {
     public class BraveState : GameState
     {
-        private Map _map;
-        private PlayerFacade _player;
-        private EnemySpawner _enemySpawner;
-        private RoomsUnlocker _roomsUnlocker;
+        private readonly Map _map;
+        private readonly Player _player;
+        private readonly EnemySpawner _enemySpawner;
+        private readonly RoomsUnlocker _roomsUnlocker;
 
 
-        public BraveState(Map map, PlayerFacade player, EnemySpawner enemySpawner)
+        public BraveState(Map map, Player player, EnemySpawner enemySpawner)
         {
             _map = map;
             _player = player;
